@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -6,45 +7,65 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Buscador</title>
+    <title>Caixa de Busca</title>
     <style>
         *{
-            padding: 0;
-            margin: 0;
             list-style: none;
-            box-sizing: border-box;            
+            margin: 0;
+            padding: 0;
         }
         body{
             height: 100vh;
             width: 100%;
         }
+        .height-commom{
+            height: 40px;
+        }
+        #main-container{
+            background-color: #28a745;
+            border-radius: 5px;
+        }
+        #button-find{
+            background-color: #28a745;
+            display: flex;
+            align-items: center;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+            transition: .3s;
+        }
+        /* #button-find::before{
+            content: '';
+            display: flex;
+            height: 100%;
+            width: 4px;
+            background-color: #28a745;
+        } */
+        #button-find:hover{
+            background-color: #65f586;
+            color: rgb(0 98 11);
+        }
+        #input-value{
+            border: none;
+            outline: none;
+            flex-grow: 1;
+        }
+    </style> 
+  </head>
+  <body>
+  <div class="d-flex align-items-center justify-content-center" style="height: 100vh;width: 100%;">
+      <div class="d-flex flex-column search-box col-10 mx-auto">
+        <img src="{% static 'imgs/Gusglee.png' %}" alt="logo" class="mx-auto p-3" style="height: 100px">
+        <form action="{% url 'resultados' %}" method="post" class="d-flex p-1 pr-0" id="main-container">
 
-    </style>
-</head>
-<body>
-    <h1>Página do Buscador</h1>
-    <div class="col-10 mx-auto">
-        <h1>PONTOS</p>
-            <table class="table">
-                <tr class="thead-dark">
-                    <th scope="col">id</th>
-                    <th scope="col">cidade</th>
-                    <th scope="col">titulo</th>
-                    <th scope="col">local</th>
-                    <th scope="col">info</th>
-                </tr>    
-                {% for ponto in pontos %}
-                
-                <tr>
-                    <th scope="row">{{ponto.id}}</td>
-                    <td>{{ponto.cidade}}</td>
-                    <td>{{ponto.titulo_local}}</td>
-                    <td>{{ponto.endereco}}</td>
-                    <td>{{ponto.informacoes}}</td>
-                </tr>    
-                
-                {% endfor %}
-            </table>
-    </div>
-</body>
+            {% csrf_token %}
+            <input id="input-value" name="cidade" type="text" class="height-commom p-1 m-0" placeholder="Digite sua busca...">
+            <button type="submit" class="height-commom p-2 m-0 cursor-pointer" id="button-find">Buscar</button>
+        </form>
+      </div>
+
+  </div>
+  
+  </body>
 </html>
