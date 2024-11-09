@@ -25,6 +25,16 @@
     <a href="{% url 'index' %}" target="_self">Voltar para a página anterior</a>
     <div class="col-10 mx-auto">
         <h1>PONTOS</p>
+                {% if searched_city %}
+                    {% if pontos %}
+                        <h1>Resultados para: {{searched_city}}</h1>
+                    {% else %}
+                        <h1>Nenhum resultado para: {{searched_city}}</h1>
+                    {% endif %}
+
+                {% else %}
+                    <h1>Todos os resultados</h1>
+                 {% endif %}
             <table class="table">
                 <tr class="thead-dark">
                     <!--  <th scope="col">id</th> -->

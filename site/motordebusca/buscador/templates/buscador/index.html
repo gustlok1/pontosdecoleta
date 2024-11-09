@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caixa de Busca</title>
     <style>
@@ -23,7 +24,15 @@
         }
         #main-container{
             background-color: #28a745;
+            transition: .5s;
             border-radius: 5px;
+            width: 100%;
+        }
+        #main{
+            transition: .5s;
+        }
+        .align-stretch{
+            align-items: stretch !important;
         }
         #button-find{
             background-color: #28a745;
@@ -33,7 +42,7 @@
             color: #fff;
             cursor: pointer;
             outline: none;
-            transition: .3s;
+            transition: .5s;
         }
         /* #button-find::before{
             content: '';
@@ -49,13 +58,19 @@
         #input-value{
             border: none;
             outline: none;
+            transition: .3s;
             flex-grow: 1;
+            width: 180px;
+        }
+        #input-value:focus{
+            /*align-items: stretch !important;*/
+            width: 300px;
         }
     </style> 
   </head>
   <body>
   <div class="d-flex align-items-center justify-content-center" style="height: 100vh;width: 100%;">
-      <div class="d-flex flex-column search-box col-10 mx-auto">
+      <div class="d-flex flex-column search-box col-10 mx-auto" style="align-items: center;" id="main">
         <img src="{% static 'imgs/Gusglee.png' %}" alt="logo" class="mx-auto p-3" style="height: 100px">
         <form action="{% url 'resultados' %}" method="post" class="d-flex p-1 pr-0" id="main-container">
 
@@ -68,4 +83,17 @@
   </div>
   
   </body>
+  <script>
+    $("#input-value").on('focus blur', function (event){
+        // if (event.type === 'focus') {
+        //     $("#main").addClass('align-stretch')
+        //     $(this).css("width", "400px")
+        //     console.log("fuck")
+        // } else if (event.type === 'blur') {
+        //     $("#main").removeClass('align-stretch')
+        //     $(this).css("width", "180px")
+        //     console.log("fuck 2")
+        // }
+    });
+  </script>
 </html>
