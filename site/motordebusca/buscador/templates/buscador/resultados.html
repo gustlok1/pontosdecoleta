@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -15,33 +16,74 @@
             box-sizing: border-box;            
         }
         body{
-            height: 100vh;
+            max-height: 100vh;
             width: 100%;
         }
-
+        .bg-green{
+            background-color:  #28a745;
+            color: #fff;
+        }#main-container{
+            background-color: #28a745;
+            transition: .5s;
+            border-radius: 5px;
+            width: 100%;
+        }
+        #button-find{
+            background-color: #28a745;
+            display: flex;
+            align-items: center;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+            transition: .5s;
+        }
+        #button-find:hover{
+            background-color: #65f586;
+            color: rgb(0 98 11);
+        }
+        #input-value{
+            border: none;
+            outline: none;
+            transition: .3s;
+            flex-grow: 1;
+            width: 180px;
+        }
+        #input-value:focus{
+            /*align-items: stretch !important;*/
+            width: 300px;
+        }
     </style>
 </head>
 <body>
-    <a href="{% url 'index' %}" target="_self">Voltar para a página anterior</a>
-    <div class="col-10 mx-auto">
-        <h1>PONTOS</p>
-                {% if searched_city %}
-                    {% if pontos %}
-                        <h1>Resultados para: {{searched_city}}</h1>
-                    {% else %}
-                        <h1>Nenhum resultado para: {{searched_city}}</h1>
-                    {% endif %}
+    <div class="col-10 mx-auto" style="margin-top: 40px;">
+        <a href="{% url 'index' %}" target="_self" class="btn btn-success">Voltar para a página anterior</a>
+        <img src="{% static 'imgs/pontos.png' %}" alt="logo" class="mx-auto" style="height: 150px; display: block;">
+        <form action="{% url 'resultados' %}" method="post" class="d-flex p-1 pr-0" id="main-container">
 
-                {% else %}
-                    <h1>Todos os resultados</h1>
-                 {% endif %}
-            <table class="table">
-                <tr class="thead-dark">
+            {% csrf_token %}
+            <input id="input-value" name="cidade" type="text" class="height-commom p-1 m-0" value="{{searched_city}}" placeholder="Digite sua busca...">
+            <button type="submit" class="height-commom p-2 m-0 cursor-pointer" id="button-find">Buscar</button>
+        </form>
+        {% if searched_city %}
+            {% if pontos %}
+                <h1>Resultados</h1>
+            {% else %}
+                <h1>Nenhum resultado</h1>
+            {% endif %}
+
+        {% else %}
+            <h1>Todos os resultados</h1>
+            {% endif %}
+        <div style="height: 50vh; overflow: auto;">
+
+            <table class="table table-striped table-hover ">
+                <tr class="">
                     <!--  <th scope="col">id</th> -->
-                    <th scope="col">cidade</th>
-                    <th scope="col">titulo</th>
-                    <th scope="col">local</th>
-                    <th scope="col">info</th>
+                    <th scope="col">Cidade</th>
+                    <th scope="col">Nome do Local</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Informações</th>
                 </tr>    
                 {% for ponto in pontos %}
                 
@@ -55,6 +97,7 @@
                 
                 {% endfor %}
             </table>
+        </div>
     </div>
 </body>
 </html>
